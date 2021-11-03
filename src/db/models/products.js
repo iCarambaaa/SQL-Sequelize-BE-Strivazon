@@ -5,7 +5,7 @@ const {DataTypes} = s // destructure data types from sequelize package
 
 
 
-const products = sequelize.define("products", { // define model and store in products variable // first parameter is table name second atributes
+const Products = sequelize.define("products", { // define model and store in Products variable // first parameter is table name second atributes
     id:{
         primaryKey:true,
         autoIncrement:true,
@@ -29,3 +29,5 @@ const products = sequelize.define("products", { // define model and store in pro
     },
 
 })
+
+export default Products
