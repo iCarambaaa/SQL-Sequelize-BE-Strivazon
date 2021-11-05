@@ -20,9 +20,9 @@ const sequelize = new Sequelize( PGDATABASE, PGUSER, PGPASSWORD, { // create ins
 
 export const connectDB = async()=> {            // use instance to build db connection
     try {
-        await sequelize.authenticate()         // check setup // can provide {logging: false} as parameter to switch off logging in console
+        await sequelize.authenticate({logging: false})         // check setup // provide {logging: false} as parameter to switch off logging in console
         console.log("DB is authenticated")
-        await sequelize.sync()                // establish connection
+        await sequelize.sync({ alter: true, logging: false }) // establish connection
         console.log("DB is established")
 
     } catch(error) {

@@ -2,8 +2,10 @@ import express from 'express';
 import listEndpoints from 'express-list-endpoints';
 import cors from "cors";
 import {connectDB} from "./db/index.js"
-import { genericErrorHandler, badRequestHandler, unauthorizedHandler, notFoundHandler } from "./errorHandlers.js";
+import { genericErrorHandler, badRequestHandler, unauthorizedHandler, notFoundHandler } from "./lib/errorHandlers.js";
 import router from "./services/products/index.js"
+import reviewsRouter from "./services/reviews/index.js"
+
 
 const server = express();
 
@@ -11,6 +13,7 @@ server.use(cors());
 server.use(express.json())
 
 server.use("/products", router)
+server.use("/products/:id/reviews", reviewsRouter)
 
 // *********************** ERROR MIDDLEWARES ***************************
 
@@ -26,7 +29,8 @@ const {PORT} = process.env
 
 server.listen(PORT, async () => {
     console.log("listening on port:", PORT)
-    await connectDB()                          // calling DB connection from sequelize instance
+    await connectDB()                                                                // calling DB connection from sequelize instance
+    
 
 })
 

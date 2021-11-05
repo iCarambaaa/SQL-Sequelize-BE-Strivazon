@@ -9,15 +9,19 @@ router
     .get(async (req, res, next) => {
         try {
             const products = await Products.findAll({include: Reviews})
-            res.send(products)
+            res.status(200).send(products)
+            console.log("here are the products", products)
         } catch(error) {
             next(error)
         }
     })
     .post(async (req, res, next) => {
+        
         try {
-            const data = await Products.create(req.body)
-            res.send(data)
+            const {...body} = await req.body 
+            const data = await Products.create(body)
+            console.log("here data:", data)
+            res.status(201).send(data)
         } catch (error) {
             next(error)
         }
@@ -36,16 +40,18 @@ router
         })
         .put(async (req, res, next) => {
             try {
-                delete req.body.id                          // can't change id
+            
+                delete req.body.id                          // prevent change id
                 const newProduct = await Products.update(
-                    {...req.body},
+                    req.body,
                     {where: {
                         id: req.params.id,
                     },
                 retuning: true,
             }
             )
-            res.send(newProduct[1][0])                      // [1, [obj]]
+            console.log("here updated: ", newProduct)                    // [1, [obj]]
+            res.send({newProduct})  
             } catch (error) {
                 next(error);
             }
