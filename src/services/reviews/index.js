@@ -18,7 +18,7 @@ router
         try {
             const data = await Reviews.create(req.body)
             console.log(data)
-            res.send(data)
+            res.status(201).send(data)
         } catch (error) {
             next(error)
         }

@@ -24,6 +24,7 @@ const Reviews = sequelize.define('Review', {
 
         }
 
-}
-)
+},{
+timestamps: false
+})
 export default Reviews
